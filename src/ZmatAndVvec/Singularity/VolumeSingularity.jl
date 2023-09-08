@@ -89,10 +89,10 @@ function volumeSingularityIgIvecg(rtveclc::AbstractVector{FT}, volumeCell::Tetra
             R⁻      =   sqrt(abs2(lⱼ⁻) + R0²)
             
             # 此处为避免数值误差，将阈值 ϵl 设定为 1e-2 边长
-            let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-3lj
-                if abs(p02jl) < ϵl
+            let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-3lj, lplusR1 = lⱼ⁺ + R⁺, lplusR2 = lⱼ⁻ + R⁻
+                if abs(p02jl) < ϵl || lplusR2 == 0 || lplusR1 == 0
                     # 投影点过于靠近该边即 p02jl = 0 时， βⱼ = 0
-                    if dtsAbs < ϵl
+                    if dtsAbs < ϵl || lplusR2 == 0 || lplusR1 == 0
                         # 视为积分点与边重合，此时 βⱼ = 0， Kᵣ不变
                         continue
                     else
@@ -230,10 +230,10 @@ function volumeSingularityIgIvecg(rtveclc::AbstractVector{FT}, volumeCell::Hexah
             R⁻      =   sqrt(abs2(lⱼ⁻) + R0²)
             
             # 此处为避免数值误差，将阈值 ϵl 设定为 1e-2 边长
-            let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-3lj
-                if abs(p02jl) < ϵl
+            let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-3lj, lplusR1 = lⱼ⁺ + R⁺, lplusR2 = lⱼ⁻ + R⁻ 
+                if abs(p02jl) < ϵl || lplusR2 == 0 || lplusR1 == 0 
                     # 投影点过于靠近该边即 p02jl = 0 时， βⱼ = 0
-                    if dtsAbs < ϵl
+                    if dtsAbs < ϵl || lplusR2 == 0 || lplusR1 == 0 
                         # 视为积分点与边重合，此时 βⱼ = 0， Kᵣ不变
                         continue
                     else
@@ -380,10 +380,10 @@ function volumeSingularityIg(rtveclc::AbstractVector{FT}, volumeCell::HexahedraI
             R⁻      =   sqrt(abs2(lⱼ⁻) + R0²)
             
             # 此处为避免数值误差，将阈值 ϵl 设定为 1e-2 边长
-            let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-3lj
-                if abs(p02jl) < ϵl
+            let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-3lj, lplusR1 = lⱼ⁺ + R⁺, lplusR2 = lⱼ⁻ + R⁻  
+                if abs(p02jl) < ϵl || lplusR2 == 0 || lplusR1 == 0 
                     # 投影点过于靠近该边即 p02jl = 0 时， βⱼ = 0
-                    if dtsAbs < ϵl
+                    if dtsAbs < ϵl || lplusR2 == 0 || lplusR1 == 0 
                         # 视为积分点与边重合，此时 βⱼ = 0， Kᵣ不变
                         continue
                     else
@@ -534,10 +534,10 @@ function volumeSingularityLOpDyad(rtveclc::AbstractVector{FT}, volumeCell::Tetra
             R⁻      =   sqrt(abs2(lⱼ⁻) + R0²)
             
             # 此处为避免数值误差，将阈值 ϵl 设定为 1e-2 边长
-            let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-2lj
-                if abs(p02jl) < ϵl
+            let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-2lj, lplusR1 = lⱼ⁺ + R⁺, lplusR2 = lⱼ⁻ + R⁻  
+                if abs(p02jl) < ϵl || lplusR2 == 0 || lplusR1 == 0
                     # 投影点过于靠近该边即 p02jl = 0 时， βⱼ = 0
-                    if dtsAbs < ϵl
+                    if dtsAbs < ϵl || lplusR2 == 0 || lplusR1 == 0
                         # 视为积分点与边重合，此时 βⱼ = 0， Kᵣ不变
                         continue
                     else
@@ -688,10 +688,10 @@ function volumeSingularityLOpDyad(rtveclc::AbstractVector{FT}, volumeCell::Hexah
             R⁻      =   sqrt(abs2(lⱼ⁻) + R0²)
             
             # 此处为避免数值误差，将阈值 ϵl 设定为 1e-2 边长
-            let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = lj/100
-                if abs(p02jl) < ϵl
+            let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = lj/100, lplusR1 = lⱼ⁺ + R⁺, lplusR2 = lⱼ⁻ + R⁻  
+                if abs(p02jl) < ϵl || lplusR2 == 0 || lplusR1 == 0  
                     # 投影点过于靠近该边即 p02jl = 0 时， βⱼ = 0
-                    if dtsAbs < ϵl
+                    if dtsAbs < ϵl || lplusR2 == 0 || lplusR1 == 0
                         # 视为积分点与边重合，此时 βⱼ = 0， Kᵣ不变
                         continue
                     else

@@ -133,9 +133,9 @@ function faceSingularityIg(rgt::AbstractVector{FT}, tris::TriangleInfo{IT, FT}, 
         R⁻      =   sqrt(lⱼ⁻^2 + R0²)
         # 投影点过于靠近该边即 p02jl = 0 时， βⱼ = 0
         # 此处为避免数值误差，将阈值 ϵl 设定为 1e-2 边长
-        let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-2lⱼ
-            if abs(p02jl) < ϵl
-                if dtsAbs < ϵl
+        let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-2lⱼ, lplusR1 = lⱼ⁺ + R⁺, lplusR2 = lⱼ⁻ + R⁻
+            if abs(p02jl) < ϵl || lplusR2 == 0 || lplusR1 == 0
+                if dtsAbs < ϵl || lplusR2 == 0 || lplusR1 == 0
                     # 视为积分点与边重合，此时 βⱼ = 0
                     continue
                 else
@@ -257,9 +257,9 @@ function faceSingularityIg(rgt::AbstractVector{FT}, tris::Tris4Tetra{IT, FT}, ar
         R⁻      =   sqrt(lⱼ⁻^2 + R0²)
         # 投影点过于靠近该边即 p02jl = 0 时， βⱼ = 0
         # 此处为避免数值误差，将阈值 ϵl 设定为 1e-2 边长
-        let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-2lⱼ
-            if abs(p02jl) < ϵl
-                if dtsAbs < ϵl
+        let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-2lⱼ, lplusR1 = lⱼ⁺ + R⁺, lplusR2 = lⱼ⁻ + R⁻
+            if abs(p02jl) < ϵl || lplusR2 == 0 || lplusR1 == 0
+                if dtsAbs < ϵl || lplusR2 == 0 || lplusR1 == 0
                     # 视为积分点与边重合，此时 βⱼ = 0
                     continue
                 else
@@ -386,9 +386,9 @@ function faceSingularityIg(rgt::AbstractVector{FT}, polys::ST, area::FT,
         R⁻      =   sqrt(lⱼ⁻^2 + R0²)
         # 投影点过于靠近该边即 p02jl = 0 时， βⱼ = 0
         # 此处为避免数值误差，将阈值 ϵl 设定为 1e-2 边长
-        let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-2lⱼ
-            if abs(p02jl) < ϵl
-                if dtsAbs < ϵl
+        let fⱼ = zero(FT), βⱼ =  zero(FT), ϵl = 1e-2lⱼ, lplusR1 = lⱼ⁺ + R⁺, lplusR2 = lⱼ⁻ + R⁻
+            if abs(p02jl) < ϵl || lplusR2 ==0 || lplusR1 == 0
+                if dtsAbs < ϵl || lplusR2 ==0 || lplusR1 == 0
                     # 视为积分点与边重合，此时 βⱼ = 0
                     continue
                 else
